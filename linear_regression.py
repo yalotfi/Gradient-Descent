@@ -3,8 +3,9 @@ from numpy import *
 
 
 def main():
-    # Run Main Logic
-    print("Hello Logistic Regression!")
+    # Step 1: Import data
+    points = genfromtxt('Data/grade_points.csv', delimiter=',')
+    print(points)
 
 
 if __name__ == '__main__':
