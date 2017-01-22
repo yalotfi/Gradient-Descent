@@ -2,6 +2,7 @@
 from numpy import *
 
 '''
+# Trying to abstract the data to be modeled for more use cases
 def load_csv(csv_lib_path):
 	# Provide path to your data source
 	data = genfromtxt(csv_lib_path, delimiter=',')
@@ -11,7 +12,16 @@ def load_csv(csv_lib_path):
 
 def compute_error(m, b, data):
     # Calculate distance of a given point to the line
-    return 0
+    total_error = 0 # Initialize error at zero
+
+    # For every data point in our set, compute the error
+    for i in range(0,len(points)):
+    	x = points[i, 0] # x value at position i
+    	y = points[i, 1] # y value at position i
+    	total_error += (y - (m * x + b)) ** 2 # Summation of squared values
+
+    # Return the average, total error of each point
+    return total_error / float(len(points))
 
 
 def step_gradient(b_current, m_current, points, learning_rate):
@@ -26,7 +36,7 @@ def gradient_descent_runner(points, starting_b, starting_m, learning_rate, num_i
 
 def main():
 	# Step 1: Import data
-	points = genfromtxt(csv_lib_path, delimiter=',')
+	points = genfromtxt('Data/grade_points.csv', delimiter=',')
 	
 	# Step 2: Define Hyperparameters of the model
 	learning_rate = 0.0001 # How Fast should the model learn?
