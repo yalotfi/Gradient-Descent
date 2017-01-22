@@ -51,15 +51,15 @@ def gradient_descent_runner(points, starting_b, starting_m, learning_rate, num_i
 	return [b, m]
 
 
-def main(learning_rate, initial_b, initial_m, iterations):
+def main(data_path, learning_rate, initial_b, initial_m, iterations):
 	# Step 1: Import data
-	points = genfromtxt('Data/grade_points.csv', delimiter=',')
+	points = genfromtxt(data_path, delimiter=',')
 	
 	# Step 2: Define Hyperparameters of the model
 	learning_rate = learning_rate # How Fast should the model learn?
-	initial_b = initial_b # Begin with a y-intercept of 0 
-	initial_m = initial_m # Begin with a slope of 0
-	num_iterations = iterations # Perform 1000 iterations
+	initial_b = initial_b # Generally begin with a y-intercept of 0 
+	initial_m = initial_m # Generally begin with a slope of 0
+	num_iterations = iterations # Perform as many iterations as you want and tweak according to CPU power...
 
 	# Step 3: Train the model
 	print('Gradient Descent begins at b = {0}, m = {1}, and error = {2}'.format(initial_b, initial_m, compute_error(initial_b, initial_m, points)))
@@ -68,4 +68,4 @@ def main(learning_rate, initial_b, initial_m, iterations):
 
 
 if __name__ == '__main__':
-    main(0.000005, 0, 0, 200)
+    main('Data/grade_points.csv', 0.000005, 0, 0, 200)
