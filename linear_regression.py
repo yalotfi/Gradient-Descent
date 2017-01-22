@@ -2,7 +2,7 @@
 from numpy import *
 
 
-def compute_error(m, b, points):
+def compute_error(b, m, points):
     # Calculate distance of a given point to the line
     total_error = 0 # Initialize error at zero
 
