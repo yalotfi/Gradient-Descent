@@ -7,6 +7,9 @@ function J = computeCost(X, y, theta)
     m = length(y); %number of training example
     J = 0; %init cost at 0
     
+    % Add intercept column of ones to x
+    X = [ones(m, 1), X(:, 1)];
+    
     % Vectorized cost function (no loop needed)
     J = 1/(2*m) * sum(((X * theta) - y).^2);
 end
