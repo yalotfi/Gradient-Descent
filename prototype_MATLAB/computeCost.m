@@ -6,15 +6,7 @@ function J = computeCost(X, y, theta)
     % Initialize
     m = length(y); %number of training example
     J = 0; %init cost at 0
-
-    %cost = 0;
-
-    for i = 1:m
-        prediction = X(i, :) * theta;
-        sqrErrors = (prediction - y(i)) .^ 2;
-        J = J + sqrErrors;
-    end
     
-    % Compute total cost
-    J = 1/(2*m) * J;
+    % Vectorized cost function (no loop needed)
+    J = 1/(2*m) * sum(((X * theta) - y).^2);
 end
