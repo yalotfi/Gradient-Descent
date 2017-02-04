@@ -1,5 +1,6 @@
-# Only one dependency: numpy
-from numpy import *
+import matplotlib.pyplot as plt
+#from numpy import *
+import numpy as np
 
 
 def compute_error(b, m, points):
@@ -46,16 +47,31 @@ def gradient_descent_runner(points, starting_b, starting_m,
     b = starting_b
     m = starting_m
 
+    # Array to track params calculated by each gradient step
+    J = np.array([[0 for x in range(2)] for y in range(num_iterations)])
+
     # Perform Gradient Descent
     for i in range(num_iterations):
         # Update b and m with more accurate version with each gradient step
-        b, m = step_gradient(b, m, array(points), learning_rate)
-    return [b, m]
+        b, m = step_gradient(b, m, np.array(points), learning_rate)
+        J[i] = float(b), (m)
+
+    return [b, m, J]
+
+
+def plot_grads(J):
+    # J is a nx2 array, n being the number of iterations
+    # Initialize variables
+    x_vals = J[:, 0]
+    y_vals = J[:, 1]
+
+    plt.plot(x_vals, y_vals)
+    plt.show()
 
 
 def main(data_path, learning_rate, initial_b, initial_m, iterations):
     # Step 1: Import data
-    points = genfromtxt(data_path, delimiter=',')
+    points = np.genfromtxt(data_path, delimiter=',')
 
     # Step 2: Define Hyperparameters of the model
     learning_rate = learning_rate  # How Fast should the model learn?
@@ -71,7 +87,7 @@ def main(data_path, learning_rate, initial_b, initial_m, iterations):
                 )
             )
         )
-    [b, m] = gradient_descent_runner(
+    [b, m, J] = gradient_descent_runner(
         points,
         initial_b,
         initial_m,
@@ -85,6 +101,8 @@ def main(data_path, learning_rate, initial_b, initial_m, iterations):
                 )
             )
         )
+    print(J)
+    plot_grads(J)
 
 
 if __name__ == '__main__':
